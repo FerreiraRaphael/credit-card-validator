@@ -14,7 +14,7 @@ function App() {
   const { data, error, mutate, isPending } = useIsValid()
   const isInvalidInput = error?.status === 400
   const isValidCreditCard = !error && data === true
-  const showMessage = data !== undefined || error === undefined
+  const showMessage = data !== undefined || error !== null
   const getMessage = () => {
     if (isInvalidInput) {
       return Messages['invalidInput']

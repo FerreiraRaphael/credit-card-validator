@@ -5,6 +5,7 @@ import express, {
   Request as ExRequest,
   NextFunction,
 } from "express";
+import cors from 'cors';
 import { ValidateError } from "tsoa";
 import { RegisterRoutes } from "../generated/routes";
 import schema from '../generated/openapi.json'
@@ -18,6 +19,7 @@ api.use(
   })
 );
 api.use(json());
+api.use(cors());
 
 api.get('/schema.json', (_, res) => {
   return res.send(schema)

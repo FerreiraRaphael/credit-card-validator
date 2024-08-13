@@ -2,9 +2,13 @@ import {
   Body,
   Controller,
   Post,
-  Route
+  Res,
+  Response,
+  Route,
+  SuccessResponse,
+  TsoaResponse
 } from "tsoa";
-import { ValidatorDomain } from "./validatorDomain";
+import { InvalidInput, ValidatorDomain } from "./validatorDomain";
 
 interface IsValidBody {
   /**
@@ -13,8 +17,14 @@ interface IsValidBody {
   creditCard: string
 }
 
+interface InvalidInputJSON {
+  message: "Credit card input invalid.";
+}
+
 @Route("creditCard")
 export class UsersController extends Controller {
+  @Response<InvalidInputJSON>(400)
+  @SuccessResponse("200", "Success")
   @Post("isValid")
   public async isValid(
     @Body() requestBody: IsValidBody,

@@ -27,6 +27,14 @@ form {
   }
 }
 
-.card {
-  padding: 2em;
+.error {
+  color: #ef4444;
+}
+
+.warning {
+  color: #eab308;
+}
+
+.success {
+  color: #22c55e;
 }

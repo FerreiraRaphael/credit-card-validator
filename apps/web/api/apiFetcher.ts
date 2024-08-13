@@ -73,7 +73,12 @@ export async function apiFetch<
     if (!response.ok) {
       let error: ErrorWrapper<TError>;
       try {
-        error = await response.json();
+        const errorPayload = await response.json();
+        // @ts-ignore
+        error = {
+          status: response.status,
+          payload: errorPayload
+        };
       } catch (e) {
         error = {
           status: "unknown" as const,
@@ -84,7 +89,7 @@ export async function apiFetch<
         };
       }
 
-      throw error;
+      throw error
     }
 
     if (response.headers.get("content-type")?.includes("json")) {
@@ -94,13 +99,16 @@ export async function apiFetch<
       return (await response.blob()) as unknown as TData;
     }
   } catch (e) {
-    let errorObject: Error = {
-      name: "unknown" as const,
-      message:
-        e instanceof Error ? `Network error (${e.message})` : "Network error",
-      stack: e as string,
-    };
-    throw errorObject;
+    if (e instanceof Error) {
+      let errorObject: Error = {
+        name: "unknown" as const,
+        message:
+          e instanceof Error ? `Network error (${e.message})` : "Network error",
+        stack: e.stack,
+      };
+      throw errorObject;
+    }
+    throw e
   }
 }
 

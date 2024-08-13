@@ -7,6 +7,22 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
+			"InvalidInputJSON": {
+				"properties": {
+					"message": {
+						"type": "string",
+						"enum": [
+							"Credit card input invalid."
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"IsValidBody": {
 				"properties": {
 					"creditCard": {
@@ -37,11 +53,24 @@
 				"operationId": "IsValid",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "Success",
 						"content": {
 							"application/json": {
 								"schema": {
 									"type": "boolean"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/InvalidInputJSON"
+								},
+								"examples": {
+									"Example 1": {}
 								}
 							}
 						}

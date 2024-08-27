@@ -2,13 +2,11 @@ import {
   Body,
   Controller,
   Post,
-  Res,
   Response,
   Route,
-  SuccessResponse,
-  TsoaResponse
+  SuccessResponse
 } from "tsoa";
-import { InvalidInput, ValidatorDomain } from "./validatorDomain";
+import { ValidatorDomain } from "./validatorDomain";
 
 interface IsValidBody {
   /**
@@ -22,7 +20,7 @@ interface InvalidInputJSON {
 }
 
 @Route("creditCard")
-export class UsersController extends Controller {
+export class ValidatorController extends Controller {
   @Response<InvalidInputJSON>(400)
   @SuccessResponse("200", "Success")
   @Post("isValid")

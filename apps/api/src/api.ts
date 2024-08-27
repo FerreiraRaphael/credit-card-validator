@@ -21,6 +21,7 @@ api.use(
 api.use(json());
 api.use(cors());
 
+
 api.get('/schema.json', (_, res) => {
   return res.send(schema)
 })
